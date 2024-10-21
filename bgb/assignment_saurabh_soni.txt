@@ -1,0 +1,83 @@
+import React from 'react';
+import {View, Text, SafeAreaView, TextInput, FlatList} from 'react-native';
+
+const App = () => {
+  const [search, setSearch] = React.useState('');
+  const [userData, setUserData] = React.useState([]);
+  const [userFilterData, setUserFilterData] = React.useState([]);
+
+  const getUserData = async () => {
+    const res = await fetch(
+      'https://63c8c8a7320a0c4c953abe54.mockapi.io/api/v1/users',
+    );
+    let jsonres = await res.json();
+    setUserData(jsonres);
+    setUserFilterData(jsonres);
+  };
+
+  const filterHandler = text => {
+    if (text) {
+      const newUserData = userData.filter(item => {
+        let data = item.first_name
+          ? item.first_name.toLowerCase()
+          : ''.toLowerCase();
+        return data.indexOf(text) > -1;
+      });
+      setUserFilterData(newUserData);
+      setSearch(text);
+    } else {
+      setUserFilterData(userData);
+      setSearch(text);
+    }
+  };
+
+  React.useEffect(() => {
+    getUserData();
+  }, []);
+
+  const renderItem = ({item, index}) => {
+    return (
+      <View>
+        <Text style={{fontSize: 16}}>
+          {index + 1}
+          {'. '}
+          {item.first_name.toLowerCase()}
+        </Text>
+      </View>
+    );
+  };
+
+  return (
+    <SafeAreaView style={{flex: 1, margin: 10}}>
+      <View>
+        <TextInput
+          style={{
+            borderWidth: 1,
+            height: 40,
+            paddingHorizontal: 10,
+          }}
+          placeholder="Serach item"
+          onChangeText={text => filterHandler(text)}
+          value={search}
+        />
+      </View>
+      <FlatList
+        contentContainerStyle={{marginTop: 20}}
+        data={userFilterData}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={renderItem}
+        ItemSeparatorComponent={
+          <View
+            style={{
+              marginVertical: 10,
+              height: 1,
+              borderBottomWidth: 1,
+              borderBottomColor: '#9A9A9A',
+            }}></View>
+        }
+      />
+    </SafeAreaView>
+  );
+};
+
+export default App;

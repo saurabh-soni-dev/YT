@@ -1,0 +1,19 @@
+ import { useEffect } from 'react';
+
+function MyComponent() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    // setup code here, such as setting up a subscription or event listener
+    const intervalId = setInterval(() => {
+      setCount(count + 1);
+    }, 1000);
+
+    // cleanup function
+    return () => {
+      clearInterval(intervalId);
+    }
+  }, []); // empty dependency array means this effect only runs once on mount
+
+  return <h1>Count: {count}</h1>;
+}

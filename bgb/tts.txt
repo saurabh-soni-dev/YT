@@ -1,0 +1,42 @@
+Here is an example of a functional component in React Native that uses the TextInput and TTS (Text-to-Speech) modules:
+
+Copy code
+import React, { useState } from 'react';
+import { View, TextInput, Button } from 'react-native';
+import { TextToSpeech } from 'react-native-tts';
+
+const SpeechInput = () => {
+  const [text, setText] = useState('');
+
+  const speak = async () => {
+    try {
+      await TextToSpeech.speak(text);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  return (
+    <View>
+      <TextInput
+        value={text}
+        onChangeText={(value) => setText(value)}
+        placeholder="Enter text to speak"
+      />
+      <Button title="Speak" onPress={speak} />
+    </View>
+  );
+};
+
+export default SpeechInput;
+In this example, the component has a TextInput field that allows the user to enter text, and a button labeled "Speak" that, when pressed, uses the TTS module to speak the text that was entered.
+
+You will need to install TTS package in order to use this example
+
+Copy code
+npm install react-native-tts
+Also remember to link the package
+
+Copy code
+react-native link react-native-tts
+This is a basic example, you can customize it as per your requirement.

@@ -1,0 +1,23 @@
+Here is an example of a functional component using the react-native-community/checkbox package:
+
+Copy code
+import React, { useState } from 'react';
+import { View, Text } from 'react-native';
+import Checkbox from '@react-native-community/checkbox';
+
+const ExampleCheckbox = () => {
+  const [isChecked, setIsChecked] = useState(false);
+
+  return (
+    <View>
+      <Text>Are you over 18 years old?</Text>
+      <Checkbox
+        value={isChecked}
+        onValueChange={() => setIsChecked(!isChecked)}
+      />
+    </View>
+  );
+}
+
+export default ExampleCheckbox;
+In this example, the component renders a text prompt and a checkbox. The state of the checkbox is controlled by the isChecked state variable, which is toggled when the checkbox is pressed. The onValueChange prop is used to update the state variable.

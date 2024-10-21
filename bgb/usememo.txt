@@ -1,0 +1,26 @@
+Memo is a React Hook that allows you to optimize the performance of your functional components by only re-rendering them when specific props or state values have changed. It works by creating a "memoized" version of the component that only re-renders if its input values (props and state) have changed.
+
+Here is an example of how to use the useMemo Hook in a functional component in React Native:
+
+Copy code
+import React, { useMemo } from 'react';
+import { Text } from 'react-native';
+
+function MyComponent({ data }) {
+  // Create a memoized value for the filteredData variable
+  const filteredData = useMemo(() => {
+    // Filter the data based on some condition
+    return data.filter(item => item.isActive);
+  }, [data]);
+
+  return (
+    <>
+      {filteredData.map(item => (
+        <Text key={item.id}>{item.name}</Text>
+      ))}
+    </>
+  );
+}
+In this example, the useMemo Hook is used to create a memoized version of the filteredData variable. The Hook takes two arguments: the first is a function that returns the value you want to memoize, and the second is an array of dependencies that the Hook will use to determine when the memoized value should be updated. In this case, the filteredData variable depends on the data prop, so it is included in the dependencies array.
+
+Now, every time the MyComponent is re-rendered, the filteredData variable will only be re-calculated if the data prop has changed. This can greatly improve the performance of the component, especially if the data array is large or the filtering process is computationally expensive.

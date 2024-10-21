@@ -1,0 +1,52 @@
+import React, { useState } from 'react';
+import { View, TextInput, Button, StyleSheet } from 'react-native';
+import KeyboardAwareScrollView from 'react-native-keyboard-aware-scroll-view';
+
+const LoginScreen = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  return (
+    <KeyboardAwareScrollView
+      style={styles.container}
+      keyboardShouldPersistTaps='always'
+    >
+      <View style={styles.formContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder='Email'
+          value={email}
+          onChangeText={text => setEmail(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder='Password'
+          secureTextEntry={true}
+          value={password}
+          onChangeText={text => setPassword(text)}
+        />
+        <Button title='Login' onPress={() => console.log('Logging in...')} />
+      </View>
+    </KeyboardAwareScrollView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  formContainer: {
+    padding: 20,
+  },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 20,
+    padding: 10,
+  },
+});
+
+export default LoginScreen;
+In this example, the KeyboardAwareScrollView is used as the main container for the login form. It has the keyboardShouldPersistTaps prop set to 'always', which allows the user to tap anywhere on the screen to dismiss the keyboard. Inside the KeyboardAwareScrollView, there is a View that contains the email and password input fields, as well as the login button. The email and password input fields use the useState hook to keep track of the user's input, and the login button calls console.log when pressed to simulate a login action. The styles object contains styles for the container, form container, and input fields.

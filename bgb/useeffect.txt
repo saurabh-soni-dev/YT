@@ -1,0 +1,42 @@
+In React Native, the useEffect hook is used to synchronize a component with an external system. 
+It allows you to run some logic when the component is rendered or when certain props or state values change.
+Here is an example of how to use the useEffect hook in a functional component:
+
+Copy code
+import { useEffect } from 'react';
+
+function MyComponent(props) {
+  useEffect(() => {
+    // This function runs when the component is rendered
+    // or when the "props.someValue" changes
+    console.log('Effect ran with props.someValue:', props.someValue);
+  }, [props.someValue]);
+
+  return <View>...</View>;
+}
+
+The first argument is a function that will be run whenever the component is rendered or when some props or state values that are being passed as the second argument changes.
+You can also specify a cleanup function to be run when the component is unmounted or when some props or state values change. 
+This can be done by returning a function in the first argument.
+
+Copy code
+useEffect(() => {
+    // This function runs when the component is rendered
+    // or when the "props.someValue" changes
+    console.log('Effect ran with props.someValue:', props.someValue);
+
+    return () => {
+      // This function runs when the component is unmounted
+      // or when the "props.someValue" changes
+      console.log('Cleanup function ran');
+    };
+  }, [props.someValue]);
+
+Also you can use useEffect with empty dependency array, this will run the effect only once when the component is mounted, and never again
+
+Copy code
+useEffect(() => {
+    // This function runs only when the component is mounted
+    console.log('Effect ran only once');
+  }, []);
+You can use this to do things like fetching data, setting up a subscription, or manually changing the DOM in response to changes in props or state.

@@ -1,0 +1,48 @@
+Here's an example of using the react-native-community/checkbox package to create a list of multiple selectable items:
+
+Copy code
+import React, { useState } from 'react';
+import { View, Text, FlatList } from 'react-native';
+import Checkbox from '@react-native-community/checkbox';
+
+const items = [
+  { id: 1, label: 'Item 1', selected: false },
+  { id: 2, label: 'Item 2', selected: false },
+  { id: 3, label: 'Item 3', selected: false },
+  { id: 4, label: 'Item 4', selected: false },
+];
+
+function Example() {
+  const [selectedItems, setSelectedItems] = useState([]);
+
+  const handleSelect = (item) => {
+    let newSelectedItems;
+    if (selectedItems.includes(item.id)) {
+      newSelectedItems = selectedItems.filter((i) => i !== item.id);
+    } else {
+      newSelectedItems = [...selectedItems, item.id];
+    }
+    setSelectedItems(newSelectedItems);
+  };
+
+  return (
+    <View>
+      <FlatList
+        data={items}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <View>
+            <Checkbox
+              value={selectedItems.includes(item.id)}
+              onValueChange={() => handleSelect(item)}
+            />
+            <Text>{item.label}</Text>
+          </View>
+        )}
+      />
+    </View>
+  );
+}
+
+export default Example;
+This will allow you to select multiple items from the list and it's also keeps track of selected items.

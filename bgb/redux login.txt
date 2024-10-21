@@ -1,0 +1,93 @@
+Here is an example of a basic login setup using react-redux in a React Native app:
+
+First, make sure you have the necessary packages installed: react-redux and redux.
+Copy code
+npm install react-redux redux
+Create a new directory called redux in your project and add a file called actions.js. In this file, you will create action creators for your login functionality.
+Copy code
+// actions.js
+export const LOGIN = 'LOGIN';
+
+export const login = (email, password) => {
+    return {
+        type: LOGIN,
+        email,
+        password
+    }
+}
+Next, create a file called reducers.js in the same directory. In this file, you will create a reducer to handle the login action.
+Copy code
+// reducers.js
+import { LOGIN } from './actions';
+
+const initialState = {
+    isLoggedIn: false,
+    email: '',
+    password: ''
+}
+
+export const loginReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case LOGIN:
+            return {
+                ...state,
+                isLoggedIn: true,
+                email: action.email,
+                password: action.password
+            }
+        default:
+            return state;
+    }
+}
+Create a new file called store.js in the same directory. In this file, you will create a store and configure it with the login reducer.
+Copy code
+// store.js
+import { createStore } from 'redux';
+import { loginReducer } from './reducers';
+
+export const store = createStore(loginReducer);
+In your root component, you will need to wrap it with the Provider component from react-redux.
+Copy code
+// App.js
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
+
+const App = () => {
+    return (
+        <Provider store={store}>
+            <LoginScreen />
+        </Provider>
+    );
+};
+In your login component, you can use the useDispatch hook from react-redux to dispatch the login action.
+Copy code
+// LoginScreen.js
+import { useDispatch } from 'react-redux';
+import { login } from './redux/actions';
+
+const LoginScreen = () => {
+    const dispatch = useDispatch();
+
+    const handleLogin = (email, password) => {
+        dispatch(login(email, password));
+    }
+
+    return (
+        <View>
+            <TextInput
+                placeholder="Email"
+                onChangeText={email => setEmail(email)}
+            />
+            <TextInput
+                placeholder="Password"
+                onChangeText={password => setPassword(password)}
+                secureTextEntry={true}
+            />
+            <Button
+                title="Log In"
+                onPress={() => handleLogin(email, password)}
+            />
+        </View>
+    );
+};
+This is a basic example of how you can set up a login feature

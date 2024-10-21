@@ -1,0 +1,43 @@
+import React, { useState } from 'react';
+import { Text, View, TouchableOpacity } from 'react-native';
+import Voice from 'react-native-voice';
+
+const VoiceInput = () => {
+  const [result, setResult] = useState('');
+  const [error, setError] = useState('');
+  const [isRecording, setIsRecording] = useState(false);
+
+  Voice.onSpeechStart = () => setIsRecording(true);
+  Voice.onSpeechEnd = () => setIsRecording(false);
+  Voice.onSpeechError = (e) => setError(e.error);
+  Voice.onSpeechResults = (e) => setResult(e.value[0]);
+
+  const startRecording = async () => {
+    try {
+      await Voice.start('en-US');
+    } catch (e) {
+      setError(e.error);
+    }
+  };
+
+  const stopRecording = async () => {
+    try {
+      await Voice.stop();
+    } catch (e) {
+      setError(e.error);
+    }
+  };
+
+  return (
+    <View>
+      <Text>{result}</Text>
+      <Text>{error}</Text>
+      <TouchableOpacity onPress={isRecording ? stopRecording : startRecording}>
+        <Text>{isRecording ? 'Stop Recording' : 'Start Recording'}</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+export default VoiceInput;
+In this example, the VoiceInput functional component uses the react-native-voice library to handle speech recognition. The component uses state to keep track of the speech recognition results, errors, and whether the recording is in progress. The component also includes a button that the user can press to start and stop recording. The onSpeechStart, onSpeechEnd, onSpeechError, and onSpeechResults callbacks are used to update the state and display the results or errors to the user.

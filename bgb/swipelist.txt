@@ -1,0 +1,85 @@
+Here is an example of how to create a swipable list with delete and edit icons in React Native using the FlatList component and the react-native-swipe-list-view library:
+
+Copy code
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import SwipeListView from 'react-native-swipe-list-view';
+
+const data = [
+  { id: 1, text: 'Item 1' },
+  { id: 2, text: 'Item 2' },
+  { id: 3, text: 'Item 3' },
+  { id: 4, text: 'Item 4' },
+];
+
+const SwipeableList = () => {
+  const [listData, setListData] = useState(data);
+
+  const deleteItem = (id) => {
+    setListData((prevState) => prevState.filter((item) => item.id !== id));
+  };
+
+  const editItem = (id) => {
+    // code to edit item
+  };
+
+  return (
+    <SwipeListView
+      data={listData}
+      renderItem={({ item }) => (
+        <View style={styles.itemContainer}>
+          <Text style={styles.itemText}>{item.text}</Text>
+        </View>
+      )}
+      renderHiddenItem={({ item }) => (
+        <View style={styles.hiddenContainer}>
+          <TouchableOpacity onPress={() => deleteItem(item.id)}>
+            <Image
+              source={require('./delete-icon.png')}
+              style={styles.deleteIcon}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => editItem(item.id)}>
+            <Image
+              source={require('./edit-icon.png')}
+              style={styles.editIcon}
+            />
+          </TouchableOpacity>
+        </View>
+      )}
+      leftOpenValue={75}
+      rightOpenValue={-75}
+    />
+  );
+};
+
+const styles = StyleSheet.create({
+  itemContainer: {
+    backgroundColor: 'white',
+    padding: 20,
+  },
+  itemText: {
+    fontSize: 18,
+  },
+  hiddenContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  deleteIcon: {
+    width: 30,
+    height: 30,
+    marginRight: 10,
+  },
+  editIcon: {
+    width: 30,
+    height: 30,
+    marginRight: 10,
+  },
+});
+
+export default SwipeableList;
+Note: You need to install react-native-swipe-list-view by running npm install react-native-swipe-list-view and linking the library by running react-native link react-native-swipe-list-view.
+
+This is a basic example and you can customize it as per your requirement.

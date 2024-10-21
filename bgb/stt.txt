@@ -1,0 +1,38 @@
+Here is an example of a functional component in React Native that uses the react-native-speech-to-text library to transcribe speech to text:
+
+Copy code
+import React, { useState } from 'react';
+import { View, Button, Text } from 'react-native';
+import SpeechToText from 'react-native-speech-to-text';
+
+const SpeechToTextExample = () => {
+  const [text, setText] = useState('');
+
+  const startRecognition = async () => {
+    try {
+      await SpeechToText.startRecognition();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const stopRecognition = async () => {
+    try {
+      const result = await SpeechToText.stopRecognition();
+      setText(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <View>
+      <Button title="Start Recognition" onPress={startRecognition} />
+      <Button title="Stop Recognition" onPress={stopRecognition} />
+      <Text>{text}</Text>
+    </View>
+  );
+};
+
+export default SpeechToTextExample;
+This component contains two buttons, one to start speech recognition and another to stop it. The transcribed text will be displayed on the screen. Note that you need to install and link the react-native-speech-to-text library before using it in your project.

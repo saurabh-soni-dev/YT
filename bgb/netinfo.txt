@@ -1,0 +1,33 @@
+import React, { useState, useEffect } from 'react';
+import { View, Text } from 'react-native';
+import NetInfo from '@react-native-community/netinfo';
+
+const NetworkStatus = () => {
+  const [isConnected, setIsConnected] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener(state => {
+      setIsConnected(state.isConnected);
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  return (
+    <View>
+      <Text>Network Status: {isConnected ? 'Connected' : 'Not Connected'}</Text>
+    </View>
+  );
+};
+
+export default NetworkStatus;
+In this example, we are using the useEffect hook to listen for changes in network status using the NetInfo module from @react-native-community/netinfo. We are also using the useState hook to keep track of the current network connection status.
+
+We start by importing the necessary modules, including NetInfo from @react-native-community/netinfo. We then create a functional component NetworkStatus that renders a view containing a text displaying the current network connection status.
+
+In the useEffect hook, we are using the NetInfo.addEventListener method to listen for changes in network status. The callback function passed to the listener receives a state object, which has a isConnected property that tells us whether the device is currently connected to the internet or not. We use this value to update the isConnected state variable.
+
+We also return an unsubscribe function from the useEffect hook to stop listening for network status changes when the component unmounts.
+
+Finally, the component renders a view containing a text displaying the current network connection status, which is determined by the value of the isConnected state variable. If the device is connected to the internet, the text will say "Connected", otherwise it will say "Not Connected".

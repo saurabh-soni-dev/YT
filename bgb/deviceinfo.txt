@@ -1,0 +1,26 @@
+Here is an example of a functional component that uses the react-native-device-info library to display the device name and device ID:
+
+Copy code
+import React from 'react';
+import { Text } from 'react-native';
+import DeviceInfo from 'react-native-device-info';
+
+const DeviceInfoScreen = () => {
+  const deviceName = DeviceInfo.getDeviceName();
+  const deviceId = DeviceInfo.getDeviceId();
+
+  return (
+    <>
+      <Text>Device Name: {deviceName}</Text>
+      <Text>Device ID: {deviceId}</Text>
+    </>
+  );
+}
+
+export default DeviceInfoScreen;
+Please make sure to install react-native-device-info and link it to your project before trying to use it.
+
+Copy code
+npm install react-native-device-info
+
+react-native link react-native-device-info

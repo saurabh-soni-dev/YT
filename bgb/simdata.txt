@@ -1,0 +1,31 @@
+import React, { useState } from 'react';
+import { View, Text, Button } from 'react-native';
+import SimData from 'react-native-sim-data';
+
+const MyComponent = () => {
+const [simData, setSimData] = useState({});
+
+const fetchSimData = async () => {
+try {
+const data = await SimData.getSimData();
+setSimData(data);
+} catch (error) {
+console.log(error);
+}
+};
+
+return (
+<View>
+<Text>SIM Data:</Text>
+<Text>Carrier Name: {simData.carrierName}</Text>
+<Text>Country Code: {simData.countryCode}</Text>
+<Text>Phone Number: {simData.phoneNumber}</Text>
+<Button title="Fetch SIM Data" onPress={fetchSimData} />
+</View>
+);
+};
+
+export default MyComponent;
+
+Copy code
+Note: This library is only available for Android. On iOS, it will return an empty object.

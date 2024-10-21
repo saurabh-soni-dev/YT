@@ -1,0 +1,65 @@
+
+const [inputFields, setInputFields] = useState(1);
+Create a function to add new input fields.
+Copy code
+const addInputField = () => {
+    setInputFields(inputFields + 1);
+}
+
+const renderInputFields = () => {
+    return Array.from({ length: inputFields }, (_, i) => (
+        <TextInput key={i} placeholder={`Input field ${i+1}`}/>
+    ));
+}
+
+return (
+    <View>
+        {renderInputFields()}
+        <Button title="Add Input Field" onPress={addInputField}/>
+    </View>
+)
+
+
+//
+
+import React, { useState } from 'react';
+import { View, TextInput, Button } from 'react-native';
+
+const App = () => {
+  const [inputs, setInputs] = useState(['']);
+
+  const handleAddInput = () => {
+    const newInputs = [...inputs];
+    newInputs.push('');
+    setInputs(newInputs);
+  };
+
+  const handleRemoveInput = index => {
+    const newInputs = [...inputs];
+    newInputs.splice(index, 1);
+    setInputs(newInputs);
+  };
+
+  const handleInputChange = (text, index) => {
+    const newInputs = [...inputs];
+    newInputs[index] = text;
+    setInputs(newInputs);
+  };
+
+  return (
+    <View>
+      {inputs.map((input, index) => (
+        <View key={index}>
+          <TextInput
+            value={input}
+            onChangeText={text => handleInputChange(text, index)}
+          />
+          <Button title="Remove" onPress={() => handleRemoveInput(index)} />
+        </View>
+      ))}
+      <Button title="Add" onPress={handleAddInput} />
+    </View>
+  );
+};
+
+export default App;

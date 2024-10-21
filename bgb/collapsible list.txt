@@ -1,0 +1,51 @@
+Here is an example of how to create a collapsible list in React Native using the Animated API and a functional component:
+
+Copy code
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, Animated } from 'react-native';
+
+const CollapsibleList = ({ items }) => {
+  const [expanded, setExpanded] = useState(false);
+  const animation = new Animated.Value();
+
+  const toggleExpanded = () => {
+    const toValue = expanded ? 0 : 1;
+
+    Animated.timing(animation, {
+      toValue,
+      duration: 200,
+      useNativeDriver: false,
+    }).start();
+
+    setExpanded(!expanded);
+  };
+
+  const height = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, items.length * 40],
+  });
+
+  return (
+    <View>
+      <TouchableOpacity onPress={toggleExpanded}>
+        <Text>Toggle</Text>
+      </TouchableOpacity>
+      <Animated.View style={{ height }}>
+        {items.map((item, index) => (
+          <View key={index}>
+            <Text>{item}</Text>
+          </View>
+        ))}
+      </Animated.View>
+    </View>
+  );
+};
+
+export default CollapsibleList;
+In this example, the CollapsibleList component takes in an items prop, which is an array of items to be displayed in the list. When the user taps the "Toggle" button, the toggleExpanded function is called, which uses the Animated API to animate the height of the list container between 0 and the total height of all the items in the list. The height variable is used to control the height of the list container, and it is interpolated from the animation value.
+
+You can use this component in your code like this:
+
+Copy code
+<CollapsibleList items={['item 1', 'item 2', 'item 3']}/>
+Please note that there are other ways to achieve the same result, this is just one of the possible example.

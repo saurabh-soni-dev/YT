@@ -1,0 +1,40 @@
+import React, { useState } from 'react';
+import { View, Text, TextInput } from 'react-native';
+import DropdownPicker from 'react-native-dropdown-picker';
+
+const MyComponent = () => {
+  const [selectedValue, setSelectedValue] = useState(null);
+  const [searchText, setSearchText] = useState('');
+  const options = [
+    { label: 'Option 1', value: 'option1' },
+    { label: 'Option 2', value: 'option2' },
+    { label: 'Option 3', value: 'option3' },
+    { label: 'Option 4', value: 'option4' },
+  ];
+
+  const handleSearch = (text) => {
+    setSearchText(text);
+  };
+
+  const filteredOptions = options.filter((option) =>
+    option.label.toLowerCase().includes(searchText.toLowerCase())
+  );
+
+  return (
+    <View>
+      <TextInput
+        placeholder="Search"
+        onChangeText={handleSearch}
+        value={searchText}
+      />
+      <DropdownPicker
+        items={filteredOptions}
+        defaultValue={selectedValue}
+        onChangeItem={(item) => setSelectedValue(item.value)}
+      />
+    </View>
+  );
+};
+
+export default MyComponent;
+In this example, we have a functional component that includes a TextInput for searching through the options in the DropdownPicker. The options array is defined outside of the component and is filtered based on the search text entered in the TextInput. The filtered options are then passed to the DropdownPicker as the items prop. The selected value is managed using state and the onChangeItem prop is used to update the selected value in state when a new option is selected from the dropdown.

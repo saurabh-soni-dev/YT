@@ -1,0 +1,34 @@
+Here is an example of a functional component in React Native that uses the BackgroundFetch module to fetch data in the background:
+
+Copy code
+import React, { useEffect } from 'react';
+import BackgroundFetch from 'react-native-background-fetch';
+
+const MyComponent = () => {
+  useEffect(() => {
+    BackgroundFetch.configure({
+      minimumFetchInterval: 15, // fetch interval in minutes
+      stopOnTerminate: false,
+      startOnBoot: true,
+    }, async taskId => {
+      // perform the background task here
+      // e.g. fetch data from an API
+      // make sure to call BackgroundFetch.finish(taskId) when the task is complete
+    }, error => {
+      console.log('[BackgroundFetch] RNBackgroundFetch failed to start');
+    });
+
+    return () => {
+      BackgroundFetch.stop();
+    }
+  }, []);
+
+  return (
+    // component JSX
+  );
+}
+
+export default MyComponent;
+This example uses the useEffect hook to configure the BackgroundFetch module with a fetch interval of 15 minutes, and sets the stopOnTerminate and startOnBoot options to false and true respectively. The async callback passed to BackgroundFetch.configure is where you would perform the background task, such as fetching data from an API. Make sure to call BackgroundFetch.finish(taskId) when the task is complete, in order to signal to the native module that the task is done.
+
+The example also includes a cleanup function that is returned from the useEffect hook, which stops the background fetch when the component is unmounted.

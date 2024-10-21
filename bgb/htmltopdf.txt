@@ -1,0 +1,21 @@
+Here is an example of how to convert HTML to PDF in React Native using the react-native-html-to-pdf library:
+
+First, install the library by running npm install react-native-html-to-pdf --save or yarn add react-native-html-to-pdf in your project's directory.
+
+Next, import the library in your component:
+
+Copy code
+import RNHTMLtoPDF from 'react-native-html-to-pdf';
+Use the convert method to convert the HTML string to a PDF file. You can specify the path where the PDF should be saved, as well as the HTML string to be converted:
+Copy code
+const htmlString = '<h1>Hello World</h1>';
+const filePath = `${RNHTMLtoPDF.getPath('documents')}/example.pdf`;
+RNHTMLtoPDF.convert({ filePath, html: htmlString })
+  .then((success) => {
+    console.log('PDF saved at: ' + success.filePath);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+Note: You may need to add permissions to your AndroidManifest.xml and Info.plist file to store the file in the device.
+Please refer the library document for more details.

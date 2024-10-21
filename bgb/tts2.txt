@@ -1,0 +1,32 @@
+ssd office
+react-native text input to speech functional component example code
+Copy code
+import React, { useState } from 'react';
+import { TextInput, Button, View } from 'react-native';
+import { TextToSpeech } from 'expo';
+
+const TextToSpeechExample = () => {
+  const [text, setText] = useState('');
+
+  const speak = async () => {
+    try {
+      await TextToSpeech.speak(text);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <View>
+      <TextInput
+        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+        onChangeText={text => setText(text)}
+        value={text}
+      />
+      <Button title="Speak" onPress={speak} />
+    </View>
+  );
+}
+
+export default TextToSpeechExample;
+In this example, we use the TextInput component to allow the user to enter text, and the Button component to trigger the speak function. The speak function uses the TextToSpeech module from expo to convert the text to speech. The try-catch block is used to handle any errors that may occur while speaking.

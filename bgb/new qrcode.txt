@@ -1,0 +1,10 @@
+Can you explain the basic architecture of React Native and how it differs from React?
+How do you handle the styling of components in React Native?
+Can you explain the concept of "virtual DOM" in React Native?
+How do you handle navigation in a React Native app?
+Can you explain how to use third-party libraries in a React Native project?
+How do you handle platform-specific code in React Native?
+Can you explain the concept of "hot reloading" in React Native?
+How do you handle the performance optimization of a React Native app?
+Can you explain how to use Redux in a React Native project?
+How do you handle push notifications in a React Native app?

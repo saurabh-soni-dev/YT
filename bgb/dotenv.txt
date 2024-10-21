@@ -1,0 +1,22 @@
+Install the dotenv package by running the following command in your project's root directory:
+Copy code
+npm install dotenv
+Create a new file in your project's root directory named ".env". This file will contain your environment variables.
+
+Add your environment variables to the .env file in the format of KEY=VALUE. For example:
+
+Copy code
+API_KEY=abcdefghijklmnopqrstuvwxyz
+In your React Native project, import the dotenv package at the top of the file where you need to access the environment variables.
+Copy code
+import dotenv from 'dotenv';
+Load the environment variables by calling the dotenv.config() method.
+Copy code
+dotenv.config();
+Access the environment variables in your code by using the process.env object. For example, to access the API_KEY variable, you would use:
+Copy code
+console.log(process.env.API_KEY);
+You can also use the environment variables in your code. For example, you can use them to set the endpoint for an API call.
+Copy code
+fetch(`https://example.com/api?key=${process.env.API_KEY}`)
+Finally, make sure to add the .env file to your .gitignore file so that it is not committed to your repository.

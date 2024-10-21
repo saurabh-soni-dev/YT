@@ -1,0 +1,96 @@
+import React, { useState, useEffect } from 'react';
+import { View, Text } from 'react-native';
+import WifiReborn from 'react-native-wifi-reborn';
+
+function WifiExample() {
+  const [wifiList, setWifiList] = useState([]);
+  const [currentWifi, setCurrentWifi] = useState('');
+
+  useEffect(() => {
+    WifiReborn.loadWifiList(wifiList => {
+      setWifiList(wifiList);
+    }, error => {
+      console.log(error);
+    });
+  }, []);
+
+  useEffect(() => {
+    WifiReborn.getCurrentWifiSSID(ssid => {
+      setCurrentWifi(ssid);
+    }, error => {
+      console.log(error);
+    });
+  }, []);
+
+  return (
+    <View>
+      <Text>Current WiFi: {currentWifi}</Text>
+      <Text>Available WiFi:</Text>
+      {wifiList.map(wifi => (
+        <Text key={wifi.SSID}>{wifi.SSID}</Text>
+      ))}
+    </View>
+  );
+}
+
+export default WifiExample;
+This is a functional component that uses the react-native-wifi-reborn library to display the current WiFi network that the device is connected to and a list of available WiFi networks. The useEffect hooks are used to call the loadWifiList and getCurrentWifiSSID functions from the WifiReborn library on component mount, and update the wifiList and currentWifi state accordingly. The component then renders the current WiFi and a list of available WiFi networks.
+
+
+
+//2
+
+
+import React, { useState } from 'react';
+import { View, Text, Button } from 'react-native';
+import WifiReborn from 'react-native-wifi-reborn';
+
+const WifiExample = () => {
+const [wifiList, setWifiList] = useState([]);
+const [connectedSSID, setConnectedSSID] = useState('');
+
+const handleScanWifi = async () => {
+try {
+const list = await WifiReborn.loadWifiList();
+setWifiList(list);
+} catch (error) {
+console.log(error);
+}
+}
+
+const handleConnectWifi = async (SSID) => {
+try {
+await WifiReborn.connectToWifi(SSID);
+setConnectedSSID(SSID);
+} catch (error) {
+console.log(error);
+}
+}
+
+const handleDisconnectWifi = async () => {
+try {
+await WifiReborn.disconnectFromWifi();
+setConnectedSSID('');
+} catch (error) {
+console.log(error);
+}
+}
+
+return (
+<View>
+<Button title="Scan Wifi" onPress={handleScanWifi} />
+<Text>Connected to: {connectedSSID}</Text>
+{wifiList.map((wifi, index) => (
+<View key={index}>
+<Text>{wifi.SSID}</Text>
+<Button title="Connect" onPress={() => handleConnectWifi(wifi.SSID)} />
+</View>
+))}
+{connectedSSID !== '' && (
+<Button title="Disconnect" onPress={handleDisconnectWifi} />
+)}
+</View>
+);
+}
+
+export default WifiExample;

@@ -1,0 +1,29 @@
+import React, { useEffect } from 'react';
+import { View, Text } from 'react-native';
+import BackgroundActions from 'react-native-background-actions';
+
+function MyComponent() {
+  useEffect(() => {
+    BackgroundActions.register({
+      taskName: 'myTask',
+      interval: 10, // 10 seconds
+      task: async () => {
+        console.log('Running background task...');
+        // do something in the background
+      }
+    });
+
+    return () => {
+      BackgroundActions.unregister('myTask');
+    }
+  }, []);
+
+  return (
+    <View>
+      <Text>My Component</Text>
+    </View>
+  );
+}
+
+export default MyComponent;
+In this example, the MyComponent functional component uses the useEffect hook to register a background task named "myTask" that runs every 10 seconds. The task function within the BackgroundActions.register call logs a message to the console, but you can replace it with any code you want to run in the background. The component also unregisters the task when it unmounts using the BackgroundActions.unregister function.

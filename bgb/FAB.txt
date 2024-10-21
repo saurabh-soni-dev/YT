@@ -1,0 +1,38 @@
+Here's an example of how you can create a floating action button using React Native and functional components:
+
+Copy code
+import React from 'react';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
+const FloatingActionButton = () => {
+  return (
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.button}>
+        <Icon name="add" size={24} color="#fff" />
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    bottom: 24,
+    right: 24,
+  },
+  button: {
+    backgroundColor: '#3F51B5',
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 8,
+  },
+});
+
+export default FloatingActionButton;
+You can customize the button style to change the appearance of the floating action button, and use the TouchableOpacity component to handle touch events.
+
+In this example, I imported the Icon component from the react-native-vector-icons library to display an "add" icon on the button. You can change the icon and its size by changing the name and size props of the Icon component.

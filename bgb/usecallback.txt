@@ -1,0 +1,24 @@
+A callback is a function that is passed as an argument to another function and is executed after the first function completes its execution. It is a way to handle asynchronous operations in JavaScript.
+
+Here is an example of a callback function being used in JavaScript:
+
+Copy code
+function addNumbers(a, b, callback) {
+    var result = a + b;
+    callback(result);
+}
+
+function printResult(result) {
+    console.log("The result is: " + result);
+}
+
+addNumbers(5, 7, printResult);
+In this example, the addNumbers function takes three arguments: a, b, and callback. The function adds a and b and stores the result in the result variable. Then, the callback function is called and passed the result variable as an argument.
+
+The printResult function is the callback function that is passed as the third argument to the addNumbers function. It takes the result variable as its argument and logs it to the console.
+
+When the addNumbers function is called and passed the values 5 and 7 as the first and second arguments, respectively, and the printResult function as the third argument, it will execute the following:
+
+Copy code
+The result is: 12
+This is just one example of how a callback function can be used. Callback functions can also be used for handling user input, making API calls, and more.

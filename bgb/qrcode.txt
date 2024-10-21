@@ -1,0 +1,33 @@
+First, we need to import the necessary libraries for generating QR code in React Native. We will be using the 'react-native-qrcode-svg' library for this purpose.
+Copy code
+import QRCode from 'react-native-qrcode-svg';
+Next, we will create a functional component called 'QRCodeGenerator' that will take in the text that needs to be converted into a QR code as a prop.
+Copy code
+const QRCodeGenerator = (props) => {
+  const { text } = props;
+  return (
+    <QRCode
+      value={text}
+    />
+  );
+}
+In the component, we will use the 'QRCode' component from the 'react-native-qrcode-svg' library and pass in the text that needs to be converted as the value prop. This will generate the QR code based on the text provided.
+
+We can also customize the QR code by passing in additional props such as 'size' to change the size of the QR code, 'color' to change the color of the QR code, and 'backgroundColor' to change the background color of the QR code.
+
+Copy code
+const QRCodeGenerator = (props) => {
+  const { text } = props;
+  return (
+    <QRCode
+      value={text}
+      size={200}
+      color="black"
+      backgroundColor="white"
+    />
+  );
+}
+Finally, we can use the 'QRCodeGenerator' component in our application by passing in the text that needs to be converted into a QR code as a prop.
+Copy code
+<QRCodeGenerator text="https://www.example.com" />
+This will generate a QR code with the text "https://www.example.com" encoded into it, with a size of 200, black color and white background.
